@@ -1,0 +1,3 @@
+class Ghs
+
+end
