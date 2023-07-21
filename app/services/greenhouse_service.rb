@@ -1,12 +1,45 @@
 require "socket"
 require_relative "secrets"
 
-i_am_rails = TCPSocket.open(SERVER_IP,SERVER_PORT)
-puts("IAMRAILS: sending command light_on")
-i_am_rails.puts("get_info")
-data_from_the_data_service = i_am_rails.gets
-puts("IAMRAILS: Recvd data back! #{data_from_the_data_service}")
+class GreenhouseService
+  def data_retrieval(command)
+    # needs to be separate from send_command - need to add 2 hour interval, method is called every 2 hours
+    # if that's not what we want, can delete
+    socket = open_socket
+    puts("IAMRAILS: sending command #{command}")
+    socket.puts(command)
+    data_from_the_data_service = socket.gets
+    puts("IAMRAILS: Recvd data back! #{data_from_the_data_service}")
+  end
+  
+  def send_command(command)
+    # send command every time a button is pushed
+    socket = open_socket
+    puts("IAMRAILS: sending command #{command}")
+    socket.puts(command)
+    data_from_the_data_service = socket.gets
+    puts("IAMRAILS: Recvd data back! #{data_from_the_data_service}")
+  end
 
+  private
+
+  def open_socket
+    TCPSocket.open(SERVER_IP,SERVER_PORT)
+  end
+end
+
+GreenhouseService.new.data_retrieval
+GreenhouseService.new.send_command("light_on")
+
+
+# ---------------------------------------------------
+# i_am_rails = TCPSocket.open(SERVER_IP,SERVER_PORT)
+# puts("IAMRAILS: sending command light_on")
+# i_am_rails.puts("get_info")
+# data_from_the_data_service = i_am_rails.gets
+# puts("IAMRAILS: Recvd data back! #{data_from_the_data_service}")
+
+# ---------------------------------------------------
 # "get_info" will return ONLY data from env. sensor sensor (an array of 5 hashes)
 # light_on / light_off -> look up command patterns
 
