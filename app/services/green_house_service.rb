@@ -19,7 +19,7 @@ class GreenHouseService
     # puts("IAMRAILS: sending command #{command}")
     socket.puts(command)
     data_from_the_data_service = socket.gets
-    # Not sure if we need this: JSON.parse(data_from_the_data_service, symbolize_names: true)
+    JSON.parse(data_from_the_data_service, symbolize_names: true)
     # puts("IAMRAILS: Recvd data back! #{data_from_the_data_service}")
   end
 

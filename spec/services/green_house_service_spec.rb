@@ -13,12 +13,10 @@ RSpec.describe GreenHouseService, type: :service do
 
         response = green_house_service.send_command("get_info")
 
-        parsed_data = JSON.parse(response)
-
-        expect(parsed_data).to be_an(Array)
-        expect(parsed_data[0]).to be_a(Hash)
+        expect(response).to be_an(Array)
+        expect(response[0]).to be_a(Hash)
         # chosing not to count how many hashes inside the array since it could vary
-        expect(parsed_data[0].keys).to eq(["id", "temp", "hum", "time_stamp"])
+        expect(response[0].keys).to eq([:id, :temp, :hum, :time_stamp])
       end
     end
   end

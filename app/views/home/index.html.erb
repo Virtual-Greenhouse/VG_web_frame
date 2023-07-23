@@ -1,0 +1,7 @@
+<h1> Virtual Greenhouse Homepage</h1>
+<br>
+<h2>Current Environment Stats:</h2>
+<p>Date: <%= @current_evniro_data.time_stamp.slice(0, 10) %></p>
+<p>Time: <%= @current_evniro_data.time_stamp.slice(13, 5) %></p>
+<p>Temperature (C): <%= @current_evniro_data.temp.round(2) %></p>
+<p>Humidity: <%= @current_evniro_data.hum.round(2) %></p>
